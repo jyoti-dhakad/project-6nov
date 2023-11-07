@@ -1,0 +1,1304 @@
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2023-11-06 06:26:02.109571', '2023-11-06 06:26:02.109581') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateDepartments (20231106062552)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "departments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "department_name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231106062552') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSalaries (20231106062611)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (72.4ms)[0m  [1m[35mCREATE TABLE "salaries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "amount" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231106062611') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLeavetypes (20231106062638)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (37.2ms)[0m  [1m[35mCREATE TABLE "leavetypes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231106062638') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateEmployees (20231106062651)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (10.1ms)[0m  [1m[35mCREATE TABLE "employees" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password" varchar, "contact" varchar, "address" varchar, "department_id" integer NOT NULL, "leavetype_id" integer NOT NULL, "salary_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0025f65a97"
+FOREIGN KEY ("department_id")
+  REFERENCES "departments" ("id")
+, CONSTRAINT "fk_rails_94242b2044"
+FOREIGN KEY ("leavetype_id")
+  REFERENCES "leavetypes" ("id")
+, CONSTRAINT "fk_rails_99ceab4fdb"
+FOREIGN KEY ("salary_id")
+  REFERENCES "salaries" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_employees_on_department_id" ON "employees" ("department_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_employees_on_leavetype_id" ON "employees" ("leavetype_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_employees_on_salary_id" ON "employees" ("salary_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231106062651') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDepartment Create (1.4ms)[0m  [1m[32mINSERT INTO "departments" ("department_name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["department_name", "intern"], ["created_at", "2023-11-06 06:31:29.509000"], ["updated_at", "2023-11-06 06:31:29.509000"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/" for ::1 at 2023-11-06 12:05:50 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as */*
+  Rendering /home/rails/.rvm/gems/ruby-3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/rails/.rvm/gems/ruby-3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.4ms | Allocations: 523)
+Completed 200 OK in 46ms (Views: 15.4ms | ActiveRecord: 0.0ms | Allocations: 9312)
+
+
+Started GET "/departments" for ::1 at 2023-11-06 12:06:00 +0530
+Processing by DepartmentsController#index as */*
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  ↳ app/controllers/departments_controller.rb:4:in `index'
+Completed 200 OK in 159ms (Views: 124.1ms | ActiveRecord: 2.0ms | Allocations: 73595)
+
+
+Started GET "/departments/1" for ::1 at 2023-11-06 12:08:01 +0530
+  
+SyntaxError (/home/rails/Desktop/project-6 nov/admin1/app/controllers/departments_controller.rb:10: syntax error, unexpected end-of-input, expecting `end'):
+  
+app/controllers/departments_controller.rb:10: syntax error, unexpected end-of-input, expecting `end'
+Started GET "/departments/1" for ::1 at 2023-11-06 12:08:24 +0530
+Processing by DepartmentsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:8:in `show'
+Completed 200 OK in 36ms (Views: 1.9ms | ActiveRecord: 4.8ms | Allocations: 6208)
+
+
+Started POST "/departments" for ::1 at 2023-11-06 12:15:55 +0530
+  
+SyntaxError (/home/rails/Desktop/project-6 nov/admin1/app/controllers/departments_controller.rb:22: syntax error, unexpected end-of-input, expecting `end'):
+  
+app/controllers/departments_controller.rb:22: syntax error, unexpected end-of-input, expecting `end'
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    "department_name": 
+}
+Started POST "/departments" for ::1 at 2023-11-06 12:16:21 +0530
+  
+SyntaxError (/home/rails/Desktop/project-6 nov/admin1/app/controllers/departments_controller.rb:22: syntax error, unexpected end-of-input, expecting `end'):
+  
+app/controllers/departments_controller.rb:22: syntax error, unexpected end-of-input, expecting `end'
+Started POST "/departments" for ::1 at 2023-11-06 12:16:43 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.0ms | Allocations: 2424)
+
+
+  
+NameError (uninitialized constant DepartmentsController::Department_name):
+  
+app/controllers/departments_controller.rb:16:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:17:12 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 3.5ms | Allocations: 2658)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'Department_name' for Department.):
+  
+app/controllers/departments_controller.rb:16:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:19:44 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 3.6ms | Allocations: 6170)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:21:27 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 0.0ms | Allocations: 3953)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:21:53 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 2.9ms | Allocations: 6036)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:23:50 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 3.5ms | Allocations: 6036)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:24:05 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 3.5ms | Allocations: 6093)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:30:04 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 0.0ms | Allocations: 3981)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:30:25 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 4.1ms | Allocations: 4590)
+
+
+  
+NoMethodError (undefined method `save?' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  save
+               save!):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:30:42 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 4.9ms | Allocations: 6041)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: "frontend devloper", created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:31:17 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+[31mUnpermitted parameter: :department_name. Context: { controller: DepartmentsController, action: create, request: #<ActionDispatch::Request:0x00007fded0e8f9e8>, params: {"department_name"=>"frontend devloper", "controller"=>"departments", "action"=>"create", "department"=>{"department_name"=>"frontend devloper"}} }[0m
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 3.4ms | Allocations: 6127)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: nil, created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:32:30 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+[31mUnpermitted parameter: :department_name. Context: { controller: DepartmentsController, action: create, request: #<ActionDispatch::Request:0x00007fdec568d6b0>, params: {"department_name"=>"frontend devloper", "controller"=>"departments", "action"=>"create", "department"=>{"department_name"=>"frontend devloper"}} }[0m
+[31mUnpermitted parameter: :department_name. Context: { controller: DepartmentsController, action: create, request: #<ActionDispatch::Request:0x00007fdec568d6b0>, params: {"department_name"=>"frontend devloper", "controller"=>"departments", "action"=>"create", "department"=>{"department_name"=>"frontend devloper"}} }[0m
+Completed 500 Internal Server Error in 75167ms (ActiveRecord: 3.8ms | Allocations: 141459)
+
+
+  
+NoMethodError (undefined method `Department_name' for #<Department id: nil, department_name: nil, created_at: nil, updated_at: nil>
+Did you mean?  department_name?
+               department_name=
+               department_name_was):
+  
+app/controllers/departments_controller.rb:18:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:33:46 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.8ms | Allocations: 537)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:34:06 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.4ms | Allocations: 581)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:35:03 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 1ms (ActiveRecord: 3.4ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:37:20 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.3ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:38:08 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.2ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:41:29 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 15401ms (ActiveRecord: 3.1ms | Allocations: 85472)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:42:04 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 113ms (ActiveRecord: 0.0ms | Allocations: 81226)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:42:19 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 60236ms (ActiveRecord: 0.0ms | Allocations: 99180)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:43:20 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 2.9ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:46:26 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.0ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:55:01 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 542)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:55:24 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 74181ms (ActiveRecord: 0.0ms | Allocations: 99873)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 12:56:43 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.8ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:28:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started POST "/departments" for ::1 at 2023-11-06 13:01:14 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 10ms (ActiveRecord: 0.6ms | Allocations: 2153)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:26:in `depart_params'
+app/controllers/departments_controller.rb:16:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 13:02:24 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 103934ms (ActiveRecord: 5.4ms | Allocations: 155464)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 13:04:13 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 3.9ms | Allocations: 523)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 13:04:39 +0530
+  
+SyntaxError (/home/rails/Desktop/project-6 nov/admin1/app/controllers/departments_controller.rb:27: syntax error, unexpected ':', expecting `end'
+...tment).permit(department_name):
+...                              ^
+):
+  
+app/controllers/departments_controller.rb:27: syntax error, unexpected ':', expecting `end'
+Started POST "/departments" for ::1 at 2023-11-06 13:05:03 +0530
+  
+SyntaxError (/home/rails/Desktop/project-6 nov/admin1/app/controllers/departments_controller.rb:27: syntax error, unexpected ')'
+...tment).permit(department_name:)
+...                              ^
+):
+  
+app/controllers/departments_controller.rb:27: syntax error, unexpected ')'
+Started POST "/departments" for ::1 at 2023-11-06 13:05:25 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 400 Bad Request in 2ms (ActiveRecord: 4.0ms | Allocations: 581)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Department
+Did you mean?  department_name):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 13:05:50 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 2.7ms | Allocations: 3116)
+
+
+  
+NameError (undefined local variable or method `param' for #<DepartmentsController:0x000000000226c8>
+Did you mean?  params
+               params=
+               @_params):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 13:06:16 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"frontend devloper", "department"=>{"department_name"=>"frontend devloper"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mDepartment Create (3.4ms)[0m  [1m[32mINSERT INTO "departments" ("department_name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["department_name", "frontend devloper"], ["created_at", "2023-11-06 07:36:16.503247"], ["updated_at", "2023-11-06 07:36:16.503247"]]
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+Completed 200 OK in 108ms (Views: 1.1ms | ActiveRecord: 12.8ms | Allocations: 64330)
+
+
+Started POST "/departments" for ::1 at 2023-11-06 13:06:32 +0530
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    "department_name": 
+}
+Processing by DepartmentsController#create as */*
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 757)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/departments_controller.rb:27:in `depart_params'
+app/controllers/departments_controller.rb:17:in `create'
+Started POST "/departments" for ::1 at 2023-11-06 13:06:41 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"", "department"=>{"department_name"=>""}}
+Completed 200 OK in 5ms (Views: 2.5ms | ActiveRecord: 0.0ms | Allocations: 1182)
+
+
+Started POST "/departments" for ::1 at 2023-11-06 13:07:02 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"junior devloper", "department"=>{"department_name"=>"junior devloper"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mDepartment Create (2.9ms)[0m  [1m[32mINSERT INTO "departments" ("department_name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["department_name", "junior devloper"], ["created_at", "2023-11-06 07:37:02.917520"], ["updated_at", "2023-11-06 07:37:02.917520"]]
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+Completed 200 OK in 14ms (Views: 1.0ms | ActiveRecord: 3.3ms | Allocations: 1938)
+
+
+Started PUT "/departments/1" for ::1 at 2023-11-06 15:16:51 +0530
+Processing by DepartmentsController#update as */*
+  Parameters: {"department_name"=>"intern", "id"=>"1", "department"=>{"department_name"=>"intern"}}
+  [1m[36mDepartment Load (1.9ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:26:in `update'
+Completed 200 OK in 21ms (Views: 0.8ms | ActiveRecord: 2.8ms | Allocations: 6926)
+
+
+Started PUT "/departments/1" for ::1 at 2023-11-06 15:17:05 +0530
+Processing by DepartmentsController#update as */*
+  Parameters: {"department_name"=>"junior", "id"=>"1", "department"=>{"department_name"=>"junior"}}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:26:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:27:in `update'
+  [1m[36mDepartment Update (3.2ms)[0m  [1m[33mUPDATE "departments" SET "department_name" = ?, "updated_at" = ? WHERE "departments"."id" = ?[0m  [["department_name", "junior"], ["updated_at", "2023-11-06 09:47:05.628556"], ["id", 1]]
+  ↳ app/controllers/departments_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:27:in `update'
+Completed 200 OK in 20ms (Views: 1.0ms | ActiveRecord: 7.9ms | Allocations: 2598)
+
+
+Started GET "/departments/3" for ::1 at 2023-11-06 15:18:45 +0530
+Processing by DepartmentsController#show as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:11:in `show'
+Completed 200 OK in 19ms (Views: 1.2ms | ActiveRecord: 3.7ms | Allocations: 4517)
+
+
+Started DELETE "/departments/3" for ::1 at 2023-11-06 15:18:53 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+  [1m[36mDepartment Destroy (2.3ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+Completed 200 OK in 16ms (Views: 0.4ms | ActiveRecord: 6.0ms | Allocations: 2130)
+
+
+Started DELETE "/departments/3" for ::1 at 2023-11-06 15:18:57 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.2ms | Allocations: 1393)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/3" for ::1 at 2023-11-06 15:19:43 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 3.1ms | Allocations: 3113)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/3" for ::1 at 2023-11-06 15:20:29 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.2ms | Allocations: 1362)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/2" for ::1 at 2023-11-06 15:21:05 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mDepartment Load (1.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+  [1m[36mDepartment Destroy (3.2ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+Completed 200 OK in 28ms (Views: 0.6ms | ActiveRecord: 9.4ms | Allocations: 4149)
+
+
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:21:09 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.2ms | Allocations: 1361)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:21:42 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 3.6ms | Allocations: 3113)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:22:06 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 4.9ms | Allocations: 3172)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:23:46 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 5.8ms | Allocations: 3114)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started POST "/departments" for ::1 at 2023-11-06 15:23:54 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"junior devloper", "department"=>{"department_name"=>"junior devloper"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mDepartment Create (3.4ms)[0m  [1m[32mINSERT INTO "departments" ("department_name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["department_name", "junior devloper"], ["created_at", "2023-11-06 09:53:54.274083"], ["updated_at", "2023-11-06 09:53:54.274083"]]
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+Completed 200 OK in 24ms (Views: 0.9ms | ActiveRecord: 8.2ms | Allocations: 4041)
+
+
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:24:02 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+  [1m[36mDepartment Destroy (3.6ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:36:in `destroy'
+Completed 200 OK in 12ms (Views: 0.5ms | ActiveRecord: 4.1ms | Allocations: 2082)
+
+
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:24:28 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 3.3ms | Allocations: 3112)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:25:36 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 0.8ms | Allocations: 16355)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:27:16 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 2.9ms | Allocations: 3135)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass):
+  
+app/controllers/departments_controller.rb:36:in `destroy'
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:28:21 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 200 OK in 15ms (Views: 0.7ms | ActiveRecord: 3.7ms | Allocations: 2527)
+
+
+Started DELETE "/departments/4" for ::1 at 2023-11-06 15:28:37 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+Completed 200 OK in 11ms (Views: 0.5ms | ActiveRecord: 3.3ms | Allocations: 2492)
+
+
+Started POST "/departments" for ::1 at 2023-11-06 15:28:42 +0530
+Processing by DepartmentsController#create as */*
+  Parameters: {"department_name"=>"junior devloper", "department"=>{"department_name"=>"junior devloper"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mDepartment Create (2.3ms)[0m  [1m[32mINSERT INTO "departments" ("department_name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["department_name", "junior devloper"], ["created_at", "2023-11-06 09:58:42.943984"], ["updated_at", "2023-11-06 09:58:42.943984"]]
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (5.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:18:in `create'
+Completed 200 OK in 99ms (Views: 1.2ms | ActiveRecord: 8.7ms | Allocations: 64102)
+
+
+Started DELETE "/departments/5" for ::1 at 2023-11-06 15:28:50 +0530
+Processing by DepartmentsController#destroy as */*
+  Parameters: {"id"=>"5"}
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/departments_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/departments_controller.rb:37:in `destroy'
+  [1m[36mDepartment Destroy (3.1ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 5]]
+  ↳ app/controllers/departments_controller.rb:37:in `destroy'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/departments_controller.rb:37:in `destroy'
+Completed 200 OK in 15ms (Views: 0.5ms | ActiveRecord: 3.7ms | Allocations: 2174)
+
+
+Started GET "/leavetypes" for ::1 at 2023-11-06 15:39:02 +0530
+Processing by LeavetypesController#index as */*
+  [1m[36mLeavetype Load (2.2ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes"[0m
+  ↳ app/controllers/leavetypes_controller.rb:7:in `index'
+Completed 200 OK in 9ms (Views: 2.1ms | ActiveRecord: 3.5ms | Allocations: 1687)
+
+
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLeavetype Create (1.1ms)[0m  [1m[32mINSERT INTO "leavetypes" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "sick leave"], ["created_at", "2023-11-06 10:10:04.319781"], ["updated_at", "2023-11-06 10:10:04.319781"]]
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mLeavetype Load (0.5ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/leavetypes" for ::1 at 2023-11-06 15:40:42 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LeavetypesController#index as */*
+  [1m[36mLeavetype Load (0.4ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes"[0m
+  ↳ app/controllers/leavetypes_controller.rb:7:in `index'
+Completed 200 OK in 90ms (Views: 51.7ms | ActiveRecord: 1.2ms | Allocations: 75109)
+
+
+Started GET "/leavetypes/1" for ::1 at 2023-11-06 15:42:04 +0530
+Processing by LeavetypesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLeavetype Load (0.2ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/leavetypes_controller.rb:11:in `show'
+Completed 200 OK in 16ms (Views: 1.0ms | ActiveRecord: 0.2ms | Allocations: 4721)
+
+
+Started POST "/leavetypes" for ::1 at 2023-11-06 15:43:14 +0530
+Processing by LeavetypesController#create as */*
+  Parameters: {"name"=>"sick leave", "leavetype"=>{"name"=>"sick leave"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:18:in `create'
+  [1m[36mLeavetype Create (1.5ms)[0m  [1m[32mINSERT INTO "leavetypes" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "sick leave"], ["created_at", "2023-11-06 10:13:14.511894"], ["updated_at", "2023-11-06 10:13:14.511894"]]
+  ↳ app/controllers/leavetypes_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:18:in `create'
+Completed 200 OK in 7ms (Views: 0.4ms | ActiveRecord: 1.7ms | Allocations: 2983)
+
+
+Started POST "/leavetypes" for ::1 at 2023-11-06 15:43:51 +0530
+Processing by LeavetypesController#create as */*
+  Parameters: {"name"=>"", "leavetype"=>{"name"=>""}}
+Completed 200 OK in 8ms (Views: 2.6ms | ActiveRecord: 2.4ms | Allocations: 3875)
+
+
+Started POST "/leavetypes" for ::1 at 2023-11-06 15:44:02 +0530
+Processing by LeavetypesController#create as */*
+  Parameters: {"name"=>"sick leave", "leavetype"=>{"name"=>"sick leave"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:18:in `create'
+  [1m[36mLeavetype Create (1.7ms)[0m  [1m[32mINSERT INTO "leavetypes" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "sick leave"], ["created_at", "2023-11-06 10:14:02.192427"], ["updated_at", "2023-11-06 10:14:02.192427"]]
+  ↳ app/controllers/leavetypes_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (2.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:18:in `create'
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 4.1ms | Allocations: 1980)
+
+
+Started PUT "/leavetypes/1" for ::1 at 2023-11-06 15:45:16 +0530
+Processing by LeavetypesController#update as */*
+  Parameters: {"name"=>"summer leave", "id"=>"1", "leavetype"=>{"name"=>"summer leave"}}
+  [1m[36mLeavetype Load (0.2ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/leavetypes_controller.rb:26:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:27:in `update'
+  [1m[36mLeavetype Update (1.4ms)[0m  [1m[33mUPDATE "leavetypes" SET "name" = ?, "updated_at" = ? WHERE "leavetypes"."id" = ?[0m  [["name", "summer leave"], ["updated_at", "2023-11-06 10:15:16.337991"], ["id", 1]]
+  ↳ app/controllers/leavetypes_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:27:in `update'
+Completed 200 OK in 7ms (Views: 0.4ms | ActiveRecord: 1.8ms | Allocations: 3320)
+
+
+Started DELETE "/leavetypes/3" for ::1 at 2023-11-06 15:45:48 +0530
+Processing by LeavetypesController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mLeavetype Load (0.2ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/leavetypes_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:37:in `destroy'
+  [1m[36mLeavetype Destroy (1.8ms)[0m  [1m[31mDELETE FROM "leavetypes" WHERE "leavetypes"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/leavetypes_controller.rb:37:in `destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/leavetypes_controller.rb:37:in `destroy'
+Completed 200 OK in 8ms (Views: 0.3ms | ActiveRecord: 2.2ms | Allocations: 2117)
+
+
+Started DELETE "/leavetypes/3" for ::1 at 2023-11-06 15:45:51 +0530
+Processing by LeavetypesController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mLeavetype Load (0.1ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/leavetypes_controller.rb:35:in `destroy'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 613)
+
+
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSalary Create (1.7ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["amount", 8000.0], ["created_at", "2023-11-06 11:34:06.161522"], ["updated_at", "2023-11-06 11:34:06.161522"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSalary Load (0.4ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mSalary Load (0.1ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSalary Create (0.9ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["amount", 8000.0], ["created_at", "2023-11-06 11:35:07.340817"], ["updated_at", "2023-11-06 11:35:07.340817"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/salaries" for ::1 at 2023-11-06 17:07:25 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/salaries"):
+  
+Started GET "/salaries" for ::1 at 2023-11-06 17:07:58 +0530
+Processing by SalariesController#index as */*
+  [1m[36mSalary Load (0.1ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries"[0m
+  ↳ app/controllers/salaries_controller.rb:7:in `index'
+Completed 200 OK in 88ms (Views: 51.4ms | ActiveRecord: 4.1ms | Allocations: 75458)
+
+
+Started GET "/salaries/1" for ::1 at 2023-11-06 17:08:32 +0530
+Processing by SalariesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mSalary Load (0.4ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:11:in `show'
+Completed 200 OK in 18ms (Views: 0.8ms | ActiveRecord: 0.4ms | Allocations: 4711)
+
+
+Started POST "/salaries" for ::1 at 2023-11-06 17:09:26 +0530
+Processing by SalariesController#create as */*
+  Parameters: {"amount"=>1000.0, "salary"=>{"amount"=>1000.0}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mSalary Create (2.7ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["amount", 1000.0], ["created_at", "2023-11-06 11:39:26.968013"], ["updated_at", "2023-11-06 11:39:26.968013"]]
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+Completed 200 OK in 18ms (Views: 0.7ms | ActiveRecord: 6.5ms | Allocations: 2983)
+
+
+Started POST "/salaries" for ::1 at 2023-11-06 17:09:34 +0530
+Processing by SalariesController#create as */*
+  Parameters: {"amount"=>1000, "salary"=>{"amount"=>1000}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mSalary Create (2.9ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["amount", 1000.0], ["created_at", "2023-11-06 11:39:34.133447"], ["updated_at", "2023-11-06 11:39:34.133447"]]
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+Completed 200 OK in 11ms (Views: 0.8ms | ActiveRecord: 3.3ms | Allocations: 1945)
+
+
+Started PUT "/salaries/1" for ::1 at 2023-11-06 17:10:25 +0530
+Processing by SalariesController#update as */*
+  Parameters: {"amount"=>90000, "id"=>"1", "salary"=>{"amount"=>90000}}
+  [1m[36mSalary Load (0.3ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:26:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:27:in `update'
+  [1m[36mSalary Update (2.5ms)[0m  [1m[33mUPDATE "salaries" SET "amount" = ?, "updated_at" = ? WHERE "salaries"."id" = ?[0m  [["amount", 90000.0], ["updated_at", "2023-11-06 11:40:25.420630"], ["id", 1]]
+  ↳ app/controllers/salaries_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:27:in `update'
+Completed 200 OK in 14ms (Views: 1.0ms | ActiveRecord: 3.1ms | Allocations: 2644)
+
+
+Started GET "/salaries/4" for ::1 at 2023-11-06 17:10:52 +0530
+Processing by SalariesController#show as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:11:in `show'
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.2ms | Allocations: 662)
+
+
+Started DELETE "/salaries/4" for ::1 at 2023-11-06 17:11:06 +0530
+Processing by SalariesController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:37:in `destroy'
+  [1m[36mSalary Destroy (2.3ms)[0m  [1m[31mDELETE FROM "salaries" WHERE "salaries"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/salaries_controller.rb:37:in `destroy'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:37:in `destroy'
+Completed 200 OK in 12ms (Views: 0.6ms | ActiveRecord: 3.1ms | Allocations: 2120)
+
+
+Started DELETE "/salaries/4" for ::1 at 2023-11-06 17:11:08 +0530
+Processing by SalariesController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:35:in `destroy'
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.2ms | Allocations: 613)
+
+
+Started POST "/salaries" for ::1 at 2023-11-06 17:12:22 +0530
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    "amount": 
+}
+Processing by SalariesController#create as */*
+Completed 400 Bad Request in 35ms (ActiveRecord: 0.0ms | Allocations: 796)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/salaries_controller.rb:47:in `salary_params'
+app/controllers/salaries_controller.rb:17:in `create'
+Started POST "/salaries" for ::1 at 2023-11-06 17:13:09 +0530
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    "amount": 
+}
+Processing by SalariesController#create as */*
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 745)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/salaries_controller.rb:47:in `salary_params'
+app/controllers/salaries_controller.rb:17:in `create'
+Started POST "/salaries" for ::1 at 2023-11-06 17:13:18 +0530
+Processing by SalariesController#create as */*
+  Parameters: {"amount"=>"", "salary"=>{"amount"=>""}}
+Completed 200 OK in 12ms (Views: 2.2ms | ActiveRecord: 4.1ms | Allocations: 3265)
+
+
+Started POST "/salaries" for ::1 at 2023-11-06 17:13:27 +0530
+Processing by SalariesController#create as */*
+  Parameters: {"amount"=>"20000", "salary"=>{"amount"=>"20000"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mSalary Create (2.8ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["amount", 20000.0], ["created_at", "2023-11-06 11:43:27.329590"], ["updated_at", "2023-11-06 11:43:27.329590"]]
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+Completed 200 OK in 15ms (Views: 1.0ms | ActiveRecord: 6.1ms | Allocations: 2005)
+
+
+Started PUT "/salaries/1" for ::1 at 2023-11-06 17:13:41 +0530
+Processing by SalariesController#update as */*
+  Parameters: {"amount"=>"", "id"=>"1", "salary"=>{"amount"=>""}}
+  [1m[36mSalary Load (0.3ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:26:in `update'
+Completed 200 OK in 12ms (Views: 3.6ms | ActiveRecord: 0.3ms | Allocations: 2315)
+
+
+Started PUT "/salaries/1" for ::1 at 2023-11-06 17:13:49 +0530
+Processing by SalariesController#update as */*
+  Parameters: {"amount"=>"30000", "id"=>"1", "salary"=>{"amount"=>"30000"}}
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/salaries_controller.rb:26:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:27:in `update'
+  [1m[36mSalary Update (4.1ms)[0m  [1m[33mUPDATE "salaries" SET "amount" = ?, "updated_at" = ? WHERE "salaries"."id" = ?[0m  [["amount", 30000.0], ["updated_at", "2023-11-06 11:43:49.473617"], ["id", 1]]
+  ↳ app/controllers/salaries_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:27:in `update'
+Completed 200 OK in 24ms (Views: 1.3ms | ActiveRecord: 4.9ms | Allocations: 2531)
+
+
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mLeavetype Load (0.1ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Create (0.3ms)[0m  [1m[32mINSERT INTO "employees" ("name", "email", "password", "contact", "address", "department_id", "leavetype_id", "salary_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "jyoti"], ["email", "jojo12@gmail.com"], ["password", "[FILTERED]"], ["contact", nil], ["address", "indore"], ["department_id", 1], ["leavetype_id", 1], ["salary_id", 1], ["created_at", "2023-11-07 04:49:01.581928"], ["updated_at", "2023-11-07 04:49:01.581928"]]
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/employees" for ::1 at 2023-11-07 10:19:58 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by EmployeesController#index as */*
+  [1m[36mEmployee Load (0.2ms)[0m  [1m[34mSELECT "employees".* FROM "employees"[0m
+  ↳ app/controllers/employees_controller.rb:7:in `index'
+Completed 200 OK in 127ms (Views: 99.0ms | ActiveRecord: 1.0ms | Allocations: 165282)
+
+
+Started GET "/employees/1" for ::1 at 2023-11-07 10:20:20 +0530
+Processing by EmployeesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEmployee Load (0.2ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:11:in `show'
+Completed 200 OK in 6ms (Views: 0.7ms | ActiveRecord: 0.2ms | Allocations: 2685)
+
+
+Started GET "/employees" for ::1 at 2023-11-07 10:20:43 +0530
+Processing by EmployeesController#index as */*
+  [1m[36mEmployee Load (0.2ms)[0m  [1m[34mSELECT "employees".* FROM "employees"[0m
+  ↳ app/controllers/employees_controller.rb:7:in `index'
+Completed 200 OK in 5ms (Views: 3.8ms | ActiveRecord: 0.2ms | Allocations: 794)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:21:37 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>nil, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>nil, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+[31mUnpermitted parameter: :contact. Context: { controller: EmployeesController, action: create, request: #<ActionDispatch::Request:0x00007fa2f4628920>, params: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>nil, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "controller"=>"employees", "action"=>"create", "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>nil, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.1ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Create (0.6ms)[0m  [1m[32mINSERT INTO "employees" ("name", "email", "password", "contact", "address", "department_id", "leavetype_id", "salary_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "jyoti"], ["email", "jojo12@gmail.com"], ["password", "[FILTERED]"], ["contact", nil], ["address", "indore"], ["department_id", 1], ["leavetype_id", 1], ["salary_id", 1], ["created_at", "2023-11-07 04:51:37.610710"], ["updated_at", "2023-11-07 04:51:37.610710"]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 107ms (Views: 0.4ms | ActiveRecord: 4.6ms | Allocations: 51644)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:22:03 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>4356753567, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>4356753567, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+[31mUnpermitted parameter: :contact. Context: { controller: EmployeesController, action: create, request: #<ActionDispatch::Request:0x00007fa30c9d31c0>, params: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>4356753567, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "controller"=>"employees", "action"=>"create", "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>4356753567, "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (22.7ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.0ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Create (0.3ms)[0m  [1m[32mINSERT INTO "employees" ("name", "email", "password", "contact", "address", "department_id", "leavetype_id", "salary_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "jyoti"], ["email", "jojo12@gmail.com"], ["password", "[FILTERED]"], ["contact", nil], ["address", "indore"], ["department_id", 1], ["leavetype_id", 1], ["salary_id", 1], ["created_at", "2023-11-07 04:52:03.948315"], ["updated_at", "2023-11-07 04:52:03.948315"]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 41ms (Views: 0.5ms | ActiveRecord: 23.7ms | Allocations: 4663)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:22:16 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+[31mUnpermitted parameter: :contact. Context: { controller: EmployeesController, action: create, request: #<ActionDispatch::Request:0x00007fa30c543218>, params: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "controller"=>"employees", "action"=>"create", "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (1.7ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.1ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.1ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Create (0.3ms)[0m  [1m[32mINSERT INTO "employees" ("name", "email", "password", "contact", "address", "department_id", "leavetype_id", "salary_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "jyoti"], ["email", "jojo12@gmail.com"], ["password", "[FILTERED]"], ["contact", nil], ["address", "indore"], ["department_id", 1], ["leavetype_id", 1], ["salary_id", 1], ["created_at", "2023-11-07 04:52:16.902189"], ["updated_at", "2023-11-07 04:52:16.902189"]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 13ms (Views: 0.4ms | ActiveRecord: 2.4ms | Allocations: 4642)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:22:43 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.2ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Create (0.3ms)[0m  [1m[32mINSERT INTO "employees" ("name", "email", "password", "contact", "address", "department_id", "leavetype_id", "salary_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "jyoti"], ["email", "jojo12@gmail.com"], ["password", "[FILTERED]"], ["contact", "4356753567"], ["address", "indore"], ["department_id", 1], ["leavetype_id", 1], ["salary_id", 1], ["created_at", "2023-11-07 04:52:43.341754"], ["updated_at", "2023-11-07 04:52:43.341754"]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 55ms (Views: 0.4ms | ActiveRecord: 8.3ms | Allocations: 23042)
+
+
+Started PUT "/employees/1" for ::1 at 2023-11-07 10:23:58 +0530
+Processing by EmployeesController#update as */*
+  Parameters: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"678987678", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "id"=>"1", "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"678987678", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+  [1m[36mEmployee Load (0.3ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:26:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:27:in `update'
+  [1m[36mEmployee Update (2.0ms)[0m  [1m[33mUPDATE "employees" SET "contact" = ?, "updated_at" = ? WHERE "employees"."id" = ?[0m  [["contact", "678987678"], ["updated_at", "2023-11-07 04:53:58.435074"], ["id", 1]]
+  ↳ app/controllers/employees_controller.rb:27:in `update'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:27:in `update'
+Completed 200 OK in 14ms (Views: 0.6ms | ActiveRecord: 3.0ms | Allocations: 3463)
+
+
+Started GET "/employees/2" for ::1 at 2023-11-07 10:24:31 +0530
+Processing by EmployeesController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:11:in `show'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 689)
+
+
+Started DELETE "/employees/2" for ::1 at 2023-11-07 10:24:37 +0530
+Processing by EmployeesController#destroy as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEmployee Load (0.2ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:37:in `destroy'
+  [1m[36mEmployee Destroy (1.2ms)[0m  [1m[31mDELETE FROM "employees" WHERE "employees"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/employees_controller.rb:37:in `destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:37:in `destroy'
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 1.6ms | Allocations: 2127)
+
+
+Started DELETE "/employees/2" for ::1 at 2023-11-07 10:24:41 +0530
+Processing by EmployeesController#destroy as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:35:in `destroy'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 598)
+
+
+Started DELETE "/employees/3" for ::1 at 2023-11-07 10:24:48 +0530
+Processing by EmployeesController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:37:in `destroy'
+  [1m[36mEmployee Destroy (1.0ms)[0m  [1m[31mDELETE FROM "employees" WHERE "employees"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/employees_controller.rb:37:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:37:in `destroy'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 2067)
+
+
+Started DELETE "/employees/3" for ::1 at 2023-11-07 10:24:52 +0530
+Processing by EmployeesController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:35:in `destroy'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 597)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:26:15 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"jyoti", "email"=>"jojo12@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.2ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.2ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "employees" WHERE "employees"."email" = ? LIMIT ?[0m  [["email", "jojo12@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 48ms (Views: 2.7ms | ActiveRecord: 5.9ms | Allocations: 24883)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:26:31 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"", "email"=>"jojo12345@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"", "email"=>"jojo12345@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (2.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.1ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.1ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "employees" WHERE "employees"."email" = ? LIMIT ?[0m  [["email", "jojo12345@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 15ms (Views: 1.4ms | ActiveRecord: 2.6ms | Allocations: 5466)
+
+
+Started POST "/employees" for ::1 at 2023-11-07 10:26:40 +0530
+Processing by EmployeesController#create as */*
+  Parameters: {"name"=>"ravina", "email"=>"jojo12345@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1, "employee"=>{"name"=>"ravina", "email"=>"jojo12345@gmail.com", "password"=>"[FILTERED]", "contact"=>"4356753567", "address"=>"indore", "department_id"=>1, "leavetype_id"=>1, "salary_id"=>1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mDepartment Load (2.8ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mLeavetype Load (0.1ms)[0m  [1m[34mSELECT "leavetypes".* FROM "leavetypes" WHERE "leavetypes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mSalary Load (0.1ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE "salaries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "employees" WHERE "employees"."email" = ? LIMIT ?[0m  [["email", "jojo12345@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mEmployee Create (0.2ms)[0m  [1m[32mINSERT INTO "employees" ("name", "email", "password", "contact", "address", "department_id", "leavetype_id", "salary_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "ravina"], ["email", "jojo12345@gmail.com"], ["password", "[FILTERED]"], ["contact", "4356753567"], ["address", "indore"], ["department_id", 1], ["leavetype_id", 1], ["salary_id", 1], ["created_at", "2023-11-07 04:56:40.804487"], ["updated_at", "2023-11-07 04:56:40.804487"]]
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/employees_controller.rb:18:in `create'
+Completed 200 OK in 21ms (Views: 0.4ms | ActiveRecord: 6.2ms | Allocations: 5269)
+
+
+Started POST "/salaries" for ::1 at 2023-11-07 10:45:16 +0530
+Processing by SalariesController#create as */*
+  Parameters: {"amount"=>"20000", "salary"=>{"amount"=>"20000"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mSalary Create (2.9ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["amount", 20000.0], ["created_at", "2023-11-07 05:15:16.458796"], ["updated_at", "2023-11-07 05:15:16.458796"]]
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+Completed 200 OK in 15ms (Views: 0.4ms | ActiveRecord: 7.9ms | Allocations: 4185)
+
+
+Started GET "/salaries" for ::1 at 2023-11-07 10:45:42 +0530
+Processing by SalariesController#index as */*
+  [1m[36mSalary Load (0.4ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries"[0m
+  ↳ app/controllers/salaries_controller.rb:7:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 0.3ms | Allocations: 1182)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddLabelTosalaries (20231107052200)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "salaries" ADD "label" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231107052200') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/salaries" for ::1 at 2023-11-07 10:56:16 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SalariesController#create as */*
+  Parameters: {"amount"=>"20000", "label"=>"salary label", "salary"=>{"amount"=>"20000", "label"=>"salary label"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mSalary Create (1.1ms)[0m  [1m[32mINSERT INTO "salaries" ("amount", "created_at", "updated_at", "label") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["amount", 20000.0], ["created_at", "2023-11-07 05:26:16.816923"], ["updated_at", "2023-11-07 05:26:16.816923"], ["label", "salary label"]]
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/salaries_controller.rb:18:in `create'
+Completed 200 OK in 53ms (Views: 0.4ms | ActiveRecord: 1.7ms | Allocations: 77699)
+
+
